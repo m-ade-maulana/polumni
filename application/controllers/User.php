@@ -129,17 +129,17 @@ class User extends CI_Controller
     public function save_data_diri()
     {
         $data = [
-            'nisn' => $this->input->post('nisn'),
-            'nama' => $this->input->post('nama'),
-            'tempat_lahir' => $this->input->post('tempat_lahir'),
+            'nisn' => htmlspecialchars($this->input->post('nisn')),
+            'nama' => htmlspecialchars($this->input->post('nama')),
+            'tempat_lahir' => htmlspecialchars($this->input->post('tempat_lahir')),
             'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-            'agama' => $this->input->post('agama'),
-            'provinsi' => $this->input->post('provinsi'),
-            'kota' => $this->input->post('kota'),
-            'kecamatan' => $this->input->post('kecamatan'),
-            'telepon' => $this->input->post('telepon'),
-            'alamat' => $this->input->post('alamat'),
+            'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin')),
+            'agama' => htmlspecialchars($this->input->post('agama')),
+            'provinsi' => htmlspecialchars($this->input->post('provinsi')),
+            'kota' => htmlspecialchars($this->input->post('kota')),
+            'kecamatan' => htmlspecialchars($this->input->post('kecamatan')),
+            'telepon' => htmlspecialchars($this->input->post('telepon')),
+            'alamat' => htmlspecialchars($this->input->post('alamat')),
         ];
 
         $insert = $this->usermodel->save_data_diri('tb_data_diri', $data);
@@ -171,13 +171,13 @@ class User extends CI_Controller
     public function save_data_kampus()
     {
         $data = [
-            'id_account' => $this->input->post('id_account'),
-            'nama' => $this->input->post('nama'),
-            'nama_kampus' => $this->input->post('nama_kampus'),
-            'nama_jurusan' => $this->input->post('nama_jurusan'),
-            'jenjang' => $this->input->post('jenjang'),
-            'tanggal_masuk' => $this->input->post('tanggal_masuk'),
-            'tanggal_keluar' => $this->input->post('tanggal_keluar')
+            'id_account' => htmlspecialchars($this->input->post('id_account')),
+            'nama' => htmlspecialchars($this->input->post('nama')),
+            'nama_kampus' => htmlspecialchars($this->input->post('nama_kampus')),
+            'nama_jurusan' => htmlspecialchars($this->input->post('nama_jurusan')),
+            'jenjang' => htmlspecialchars($this->input->post('jenjang')),
+            'tanggal_masuk' => htmlspecialchars($this->input->post('tanggal_masuk')),
+            'tanggal_keluar' => htmlspecialchars($this->input->post('tanggal_keluar'))
         ];
 
         $insert = $this->usermodel->save_data('tb_universitas', $data);
@@ -209,11 +209,11 @@ class User extends CI_Controller
     public function save_data_pekerjaan()
     {
         $data = [
-            'id_account' => $this->input->post('id_account'),
-            'nama' => $this->input->post('nama'),
-            'nama_perusahaan' => $this->input->post('nama_perusahaan'),
-            'bidang' => $this->input->post('bidang'),
-            'jabatan' => $this->input->post('jabatan'),
+            'id_account' => htmlspecialchars($this->input->post('id_account')),
+            'nama' => htmlspecialchars($this->input->post('nama')),
+            'nama_perusahaan' => htmlspecialchars($this->input->post('nama_perusahaan')),
+            'bidang' => htmlspecialchars($this->input->post('bidang')),
+            'jabatan' => htmlspecialchars($this->input->post('jabatan')),
             'tanggal_masuk' => $this->input->post('tanggal_masuk'),
             'tanggal_keluar' => $this->input->post('tanggal_keluar')
         ];

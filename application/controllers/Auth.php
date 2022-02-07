@@ -23,8 +23,8 @@ class Auth extends CI_Controller
 
     public function login()
     {
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
+        $username = htmlspecialchars($this->input->post('username'));
+        $password = htmlspecialchars($this->input->post('password'));
 
         $result = $this->db->get_where('tb_registered', ['username' => $username])->row_array();
 
@@ -81,11 +81,11 @@ class Auth extends CI_Controller
     public function register()
     {
         $data = [
-            'nama' => $this->input->post('nama'),
+            'nama' => htmlspecialchars($this->input->post('nama')),
             'tanggal_lahir' => $this->input->post('tanggalLahir'),
-            'email' => $this->input->post('email'),
-            'username' => $this->input->post('username'),
-            'password' => $this->input->post('password'),
+            'email' => htmlspecialchars($this->input->post('email')),
+            'username' => htmlspecialchars($this->input->post('username')),
+            'password' => htmlspecialchars($this->input->post('password')),
             'role' => '2'
         ];
 
