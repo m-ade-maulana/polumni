@@ -48,7 +48,7 @@ class Auth extends CI_Controller
                             </button>
                         </div>'
                     );
-                    redirect('login');
+                    redirect('auth');
                 }
             } else {
                 $this->session->set_flashdata(
@@ -60,7 +60,7 @@ class Auth extends CI_Controller
                         </button>
                     </div>'
                 );
-                redirect('login');
+                redirect('auth');
             }
         } else {
             $this->session->set_flashdata(
@@ -72,7 +72,7 @@ class Auth extends CI_Controller
                         </button>
                     </div>'
             );
-            redirect('login');
+            redirect('auth');
         }
     }
 
