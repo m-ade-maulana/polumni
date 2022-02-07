@@ -31,6 +31,8 @@ class User extends CI_Controller
     }
     public function index()
     {
+        $data['title'] = "Portal Alumni - Dashboard";
+    
         $data['id_account'] = $this->session->userdata('id_account');
         $data['nama'] = $this->session->userdata('id_account');
 
@@ -48,6 +50,8 @@ class User extends CI_Controller
 
     public function profile()
     {
+        $data['title'] = "Portal Alumni - Profile";
+
         $data['id_account'] = $this->session->userdata('id_account');
         $data['nama'] = $this->session->userdata('nama');
 
@@ -65,6 +69,8 @@ class User extends CI_Controller
 
     public function bukululusan()
     {
+        $data['title'] = "Portal Alumni - Buku Lulusan";
+
         $id_account = $this->session->userdata('id_account');
 
         $data['id_account'] = $this->session->userdata('id_account');
@@ -80,6 +86,8 @@ class User extends CI_Controller
 
     public function karir()
     {
+        $data['title'] = "Portal Alumni - Karir";
+
         $data['id_account'] = $this->session->userdata('id_account');
         $data['nama'] = $this->session->userdata('nama');
 
@@ -89,14 +97,18 @@ class User extends CI_Controller
         $data['get_data_kampus'] = $this->db->get_where('tb_universitas', ['id_account' => $id_account])->result_array();
         $data['get_data_pekerjaan'] = $this->db->get_where('tb_pekerjaan', ['id_account' => $id_account])->result_array();
         $data['get_foto_profile'] = $this->db->get_where('tb_foto_profile', ['id_account' => $id_account])->row_array();
+
+        $data['get_lowongan'] = $this->db->get('tb_lowongan_kerja')->result_array();
 
         $this->load->view('user/template/header', $data);
         $this->load->view('user/karir', $data);
         $this->load->view('user/template/footer', $data);
     }
 
-    public function detilJobs()
+    public function detilJobs($id_jobs)
     {
+        $data['title'] = "Portal Alumni - Detils Jobs";
+
         $data['id_account'] = $this->session->userdata('id_account');
         $data['nama'] = $this->session->userdata('nama');
 
@@ -106,6 +118,8 @@ class User extends CI_Controller
         $data['get_data_kampus'] = $this->db->get_where('tb_universitas', ['id_account' => $id_account])->result_array();
         $data['get_data_pekerjaan'] = $this->db->get_where('tb_pekerjaan', ['id_account' => $id_account])->result_array();
         $data['get_foto_profile'] = $this->db->get_where('tb_foto_profile', ['id_account' => $id_account])->row_array();
+
+        $data['get_detil_lowongan'] = $this->db->get_where('tb_lowongan_kerja', ['id_jobs' => $id_jobs])->result_array();
 
         $this->load->view('user/template/header', $data);
         $this->load->view('user/detiljobs', $data);

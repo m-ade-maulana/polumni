@@ -16,6 +16,8 @@ class Auth extends CI_Controller
 
     public function registered()
     {   
+        $data['title'] = "Portal Alumni - Registered";
+
         $this->load->view('register');
     }
 
