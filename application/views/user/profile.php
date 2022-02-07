@@ -13,14 +13,14 @@
     <div class="col-sm-4 col-sm-4 mb-3">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h5>Foto profile</h5>
+                <h5 class="text-uppercase"><strong>Foto profile</strong></h5>
             </div>
             <div class="card-body">
                 <?php
                 if ($get_foto_profile == null) { ?>
                     <img src="<?= base_url('assets/img/undraw_profile.svg') ?>" alt="" srcset="" class="img-rounded">
                 <?php } else { ?>
-                    <img src="<?= base_url('upload/image/profile/' . $get_foto_profile['foto']) ?>" alt="" srcset="" class="rounded" width="300" height="350">
+                    <img src="<?= base_url('upload/image/profile/' . $get_foto_profile['foto']) ?>" alt="" srcset="" class="rounded" width="285" height="350">
                 <?php }
                 ?>
                 <div class="text-center justify-content-center mt-3">
@@ -35,132 +35,193 @@
     <div class="col-sm-8 col-sm-4">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h4>Data Diri</h4>
+                <h5 class="text-uppercase"><strong>Data Diri</strong></h5>
             </div>
             <div class="card-body">
-                <form action="<?= base_url('user/save_data_diri') ?>" method="POST">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                <?php 
+                    if ($get_data_diri == null) { ?>
+                        <form action="<?= base_url('user/save_data_diri') ?>" method="POST">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="nisn" id="NISN" class="form-control" placeholder="NISN">
                                     </div>
                                 </div>
-                                <input type="text" name="nisn" id="NISN" class="form-control" placeholder="NISN">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="nama" id="Nama" class="form-control" placeholder="Nama Alumni">
                                     </div>
                                 </div>
-                                <input type="text" name="nama" id="Nama" class="form-control" placeholder="Nama Alumni">
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-location-arrow"></i>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-location-arrow"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="tempat_lahir" id="tempatLahir" class="form-control" placeholder="Tempat Lahir">
                                     </div>
                                 </div>
-                                <input type="text" name="tempat_lahir" id="tempatLahir" class="form-control" placeholder="Tempat Lahir">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-calendar"></i>
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                        <input type="date" name="tanggal_lahir" id="tanggalLahir" class="form-control" placeholder="Tanggal Lahir">
                                     </div>
                                 </div>
-                                <input type="date" name="tanggal_lahir" id="tanggalLahir" class="form-control" placeholder="Tanggal Lahir">
                             </div>
-                        </div>
-                    </div>
 
-                    <div class=" row">
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-venus-mars"></i>
+                            <div class=" row">
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-venus-mars"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="jenis_kelamin" id="jenisKelamin" class="form-control" placeholder="Jenis Kelamin">
                                     </div>
                                 </div>
-                                <input type="text" name="jenis_kelamin" id="jenisKelamin" class="form-control" placeholder="Jenis Kelamin">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-praying-hands"></i>
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-praying-hands"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="agama" id="Agama" class="form-control" placeholder="Agama">
                                     </div>
                                 </div>
-                                <input type="text" name="agama" id="Agama" class="form-control" placeholder="Agama">
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-location-arrow"></i>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-location-arrow"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="provinsi" id="Provinsi" class="form-control" placeholder="Provinsi">
                                     </div>
                                 </div>
-                                <input type="text" name="provinsi" id="Provinsi" class="form-control" placeholder="Provinsi">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-location-arrow"></i>
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-location-arrow"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="kota" id="Kota" class="form-control" placeholder="Kota">
                                     </div>
                                 </div>
-                                <input type="text" name="kota" id="Kota" class="form-control" placeholder="Kota">
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-location-arrow"></i>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-location-arrow"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="kecamatan" id="kecamatan" class="form-control" placeholder="Kecamatan">
                                     </div>
                                 </div>
-                                <input type="text" name="kecamatan" id="kecamatan" class="form-control" placeholder="Kecamatan">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-phone"></i>
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="telepon" id="Telepon" class="form-control" placeholder="Nomor Telepon">
                                     </div>
                                 </div>
-                                <input type="text" name="telepon" id="Telepon" class="form-control" placeholder="Nomor Telepon">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="alamat" id="Alamat" cols="10" rows="5" class="form-control"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-md">Submit</button>
+
+                        </form>
+                    <?php } else { ?>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label for="">NISN</label>
+                            </div>
+                            <div class="col-sm-6"> 
+                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['nisn'] ?></strong></p>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="alamat" id="Alamat" cols="10" rows="5" class="form-control"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-md">Submit</button>
-
-                </form>
-
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label for="">Nama</label>
+                            </div>
+                            <div class="col-sm-6"> 
+                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['nama'] ?></strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label for="">Tempat Lahir</label>
+                            </div>
+                            <div class="col-sm-6"> 
+                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['tempat_lahir'] ?></strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label for="">Tanggal Lahir</label>
+                            </div>
+                            <div class="col-sm-6"> 
+                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['tanggal_lahir'] ?></strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label for="">Jenis Kelamin</label>
+                            </div>
+                            <div class="col-sm-6"> 
+                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['jenis_kelamin'] ?></strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label for="">Agama</label>
+                            </div>
+                            <div class="col-sm-6"> 
+                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['agama'] ?></strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label for="">Alamat</label>
+                            </div>
+                            <div class="col-sm-9"> 
+                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['alamat'] ?>, <?= $get_data_diri['kecamatan'] ?>, <?= $get_data_diri['kota'] ?>,<?= $get_data_diri['provinsi'] ?></strong></p>
+                            </div>
+                        </div>
+                        <a href="" class="btn btn-primary btn-block">Update Data Diri</a>
+                    <?php }
+                ?>
             </div>
         </div>
     </div>
@@ -171,7 +232,7 @@
     <div class="col-sm-12 col-sm-12">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h5>Universitas</h5>
+                <h5 class="text-uppercase"><strong>Universitas</strong></h5>
             </div>
             <div class="card-body">
                 <table id="table" class="table table-striped table-bordered table-hover table-responsive-sm" style="width:100%">
@@ -213,7 +274,7 @@
     <div class="col-sm-12 col-sm-12">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h5>Pekerjaan</h5>
+                <h5 class="text-uppercase"><strong>Pekerjaan</strong></h5>
             </div>
             <div class="card-body">
                 <table id="table-pekerjaan" class="table table-striped table-bordered table-hover table-responsive-sm" style="width:100%">
@@ -255,7 +316,7 @@
     <div class="col-sm-12 col-sm-12">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h5>CV</h5>
+                <h5 class="text-uppercase"><strong>CV</strong></h5>
             </div>
             <div class="card-body">
                 <p class="text-center">Anda belum mengisi CV Anda</p>

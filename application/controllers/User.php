@@ -53,13 +53,28 @@ class User extends CI_Controller
 
         $id_account = $this->session->userdata('id_account');
         $data['get_data'] = $this->db->get_where('tb_registered', ['id_account' => $id_account])->result_array();
-
+        $data['get_data_diri'] = $this->db->get_where('tb_data_diri', ['id_account' =>$id_account])->row_array();
         $data['get_data_kampus'] = $this->db->get_where('tb_universitas', ['id_account' => $id_account])->result_array();
         $data['get_data_pekerjaan'] = $this->db->get_where('tb_pekerjaan', ['id_account' => $id_account])->result_array();
         $data['get_foto_profile'] = $this->db->get_where('tb_foto_profile', ['id_account' => $id_account])->row_array();
 
         $this->load->view('user/template/header', $data);
         $this->load->view('user/profile', $data);
+        $this->load->view('user/template/footer', $data);
+    }
+
+    public function bukululusan()
+    {
+        $id_account = $this->session->userdata('id_account');
+
+        $data['id_account'] = $this->session->userdata('id_account');
+        $data['nama'] = $this->session->userdata('nama');
+        $data['get_foto_profile'] = $this->db->get_where('tb_foto_profile', ['id_account' => $id_account])->row_array();
+        // $data['id'] = random_int(100000, 999999);
+        $data['get_lowongan'] = $this->db->get('tb_lowongan_kerja')->result_array();
+        $data['get_data_alumni_all'] = $this->usermodel->join_data()->result_array();
+        $this->load->view('user/template/header', $data);
+        $this->load->view('user/bukululusan', $data);
         $this->load->view('user/template/footer', $data);
     }
 

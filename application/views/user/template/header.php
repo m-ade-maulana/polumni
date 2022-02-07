@@ -58,9 +58,9 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-comments"></i>
-                    <span>Kuisioner</span>
+                <a class="nav-link" href="<?= base_url('user/bukululusan') ?>">
+                    <i class="fas fa-fw fa-graduation-cap"></i>
+                    <span>Buku Lulusan</span>
                 </a>
             </li>
 

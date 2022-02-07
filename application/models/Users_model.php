@@ -41,4 +41,11 @@ class Users_model extends CI_Model
     $insert = $this->db->insert($table, $value);
     return $insert;
   }
+
+  public function join_data() {
+    $this->db->select('*');
+    $this->db->from('tb_foto_profile');
+    $this->db->join('tb_data_diri', 'tb_data_diri.id_account = tb_foto_profile.id_account');
+    return $this->db->get();
+  }
 }
