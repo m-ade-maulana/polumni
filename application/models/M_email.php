@@ -44,7 +44,7 @@ class M_email extends CI_Model
                                                     <td style="padding:0 0 36px 0;color:#153643;">
                                                         <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif; text-align: center;" >Email Activation</h1>
                                                         <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif; text-align: center;">Silahkan klik tombol dibawah ini untuk aktivasi akun</p>
-                                                        <p style="text-align: center;"><a href="http://localhost/polumni/auth/activation" target="_blank" style="background-color:#4CAF50; border:none; border-radius: 5px; color: white; padding: 16px 13px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Aktivasi</a></p>
+                                                        <p style="text-align: center;"><a href="http://portalalumni.smk-nusantara1-kotang.sch.id/auth/activation" target="_blank" style="background-color:#4CAF50; border:none; border-radius: 5px; color: white; padding: 16px 13px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Aktivasi</a></p>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -56,7 +56,7 @@ class M_email extends CI_Model
                                                 <tr>
                                                     <td style="padding:0;width:50%;" align="left">
                                                         <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                                                            &reg; Someone, Somewhere 2021<br /><a href="http://www.example.com" style="color:#ffffff;text-decoration:underline;">Unsubscribe</a>
+                                                            &reg; Kans developer, SMK Nusantara 1 2021<br />
                                                         </p>
                                                     </td>
                                                     <td style="padding:0;width:50%;" align="right">
