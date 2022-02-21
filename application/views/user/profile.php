@@ -10,217 +10,201 @@
 </div>
 
 <div class="row mb-3">
-    <div class="col-sm-4 col-sm-4 mb-3">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5 class="text-uppercase"><strong>Foto profile</strong></h5>
-            </div>
-            <div class="card-body">
-                <?php
-                if ($get_foto_profile == null) { ?>
-                    <img src="<?= base_url('assets/img/undraw_profile.svg') ?>" alt="" srcset="" class="img-rounded">
-                <?php } else { ?>
-                    <img src="<?= base_url('upload/image/profile/' . $get_foto_profile['foto']) ?>" alt="" srcset="" class="rounded" width="285" height="350">
-                <?php }
-                ?>
-                <div class="text-center justify-content-center mt-3">
-                    <a href="#" class="btn btn-primary btn-md" data-toggle="modal" data-target=".modalFoto">
-                        <i class="fas fa-camera"></i> Ubah Foto
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-8 col-sm-4">
+    <div class="col-sm-12 col-sm-4">
         <div class="card">
             <div class="card-header bg-primary text-white">
                 <h5 class="text-uppercase"><strong>Data Diri</strong></h5>
             </div>
             <div class="card-body">
-                <?php 
-                    if ($get_data_diri == null) { ?>
-                        <form action="<?= base_url('user/save_data_diri') ?>" method="POST">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-user"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="nisn" id="NISN" class="form-control" placeholder="NISN">
+                <?php
+                if ($get_data_diri == null) { ?>
+                    <?= form_open_multipart('user/save_data_diri') ?>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="" class="font-weight-bold">NISN</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-user"></i>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-user"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="nama" id="Nama" class="form-control" placeholder="Nama Alumni">
+                                <input type="text" name="nisn" id="NISN" class="form-control" placeholder="...">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="" class="font-weight-bold">Nama</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-user"></i>
                                     </div>
+                                </div>
+                                <input type="text" name="nama" id="Nama" class="form-control" value="<?= $nama ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="" class="font-weight-bold">Tempat Lahir</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-location-arrow"></i>
+                                    </div>
+                                </div>
+                                <input type="text" name="tempat_lahir" id="tempatLahir" class="form-control" placeholder="..." required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="" class="font-weight-bold">Tanggal Lahir</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                </div>
+                                <input type="date" name="tanggal_lahir" id="tanggalLahir" class="form-control" value="<?= $tanggal_lahir ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" row">
+                        <div class="col-sm-6">
+                            <label for="" class="font-weight-bold">Jenis Kelamin</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-venus-mars"></i>
+                                    </div>
+                                </div>
+                                <select class="form-control" name="jenis_kelamin" id="jenisKelamin" required>
+                                    <option value="Laki-Laki">Laki-Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="" class="font-weight-bold">Agama</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-praying-hands"></i>
+                                    </div>
+                                </div>
+                                <select class="form-control" name="agama" id="Agama" required>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Katolik">Katolik</option>
+                                    <option value="Protestan">Protestan</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Budha">Budha</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="font-weight-bold">Nomor Telepon</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fas fa-phone"></i>
                                 </div>
                             </div>
+                            <input type="text" name="telepon" id="Telepon" class="form-control" placeholder="..." required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="font-weight-bold">Alamat</label>
+                        <textarea name="alamat" id="Alamat" cols="10" rows="5" class="form-control" placeholder="Masukan Alamat Lengkap Anda" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="font-weight-bold">Upload foto</label>
+                        <input type="file" name="foto_profile" id="foto_profile" class="form-control">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-md">Submit</button>
+
+                    </form>
+                <?php } else { ?>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <img src="<?= base_url('upload/image/profile/' . $get_data_diri['foto']) ?>" class="img-fluid rounded" alt="">
+                            <button type="button" class="btn btn-md btn-primary btn-block mt-2" data-toggle="modal" data-target=".modalUpdateFoto_<?= $get_data_diri['id_account'] ?>">Update Foto</button>
+
+                        </div>
+                        <div class="col-md-6">
 
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-location-arrow"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="tempat_lahir" id="tempatLahir" class="form-control" placeholder="Tempat Lahir">
-                                    </div>
+                                <div class="col-sm-3">
+                                    <label for="">NISN</label>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-calendar"></i>
-                                            </div>
-                                        </div>
-                                        <input type="date" name="tanggal_lahir" id="tanggalLahir" class="form-control" placeholder="Tanggal Lahir">
-                                    </div>
+                                    <p class="text-dark text-uppercase">: <strong>
+                                            <?php
+                                            if ($get_data_diri['nisn'] == null) {
+                                                echo "-";
+                                            } else {
+                                                echo $get_data_diri['nisn'];
+                                            }
+                                            ?>
+                                        </strong></p>
                                 </div>
                             </div>
-
-                            <div class=" row">
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-venus-mars"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="jenis_kelamin" id="jenisKelamin" class="form-control" placeholder="Jenis Kelamin">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-praying-hands"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="agama" id="Agama" class="form-control" placeholder="Agama">
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-location-arrow"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="provinsi" id="Provinsi" class="form-control" placeholder="Provinsi">
-                                    </div>
+                                <div class="col-sm-3">
+                                    <label for="">Nama</label>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-location-arrow"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="kota" id="Kota" class="form-control" placeholder="Kota">
-                                    </div>
+                                    <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['nama'] ?></strong></p>
                                 </div>
                             </div>
-
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-location-arrow"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="kecamatan" id="kecamatan" class="form-control" placeholder="Kecamatan">
-                                    </div>
+                                <div class="col-sm-3">
+                                    <label for="">Tempat Lahir</label>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-phone"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="telepon" id="Telepon" class="form-control" placeholder="Nomor Telepon">
-                                    </div>
+                                    <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['tempat_lahir'] ?></strong></p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <textarea name="alamat" id="Alamat" cols="10" rows="5" class="form-control"></textarea>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label for="">Tanggal Lahir</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['tanggal_lahir'] ?></strong></p>
+                                </div>
                             </div>
-
-                            <button type="submit" class="btn btn-primary btn-md">Submit</button>
-
-                        </form>
-                    <?php } else { ?>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label for="">NISN</label>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label for="">Jenis Kelamin</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['jenis_kelamin'] ?></strong></p>
+                                </div>
                             </div>
-                            <div class="col-sm-6"> 
-                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['nisn'] ?></strong></p>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label for="">Agama</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['agama'] ?></strong></p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label for="">Nama</label>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['nama'] ?></strong></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label for="">Tempat Lahir</label>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['tempat_lahir'] ?></strong></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label for="">Tanggal Lahir</label>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['tanggal_lahir'] ?></strong></p>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label for="">Alamat</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['alamat'] ?></p>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label for="">Jenis Kelamin</label>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['jenis_kelamin'] ?></strong></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label for="">Agama</label>
-                            </div>
-                            <div class="col-sm-6"> 
-                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['agama'] ?></strong></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label for="">Alamat</label>
-                            </div>
-                            <div class="col-sm-9"> 
-                                <p class="text-dark text-uppercase">: <strong><?= $get_data_diri['alamat'] ?>, <?= $get_data_diri['kecamatan'] ?>, <?= $get_data_diri['kota'] ?>,<?= $get_data_diri['provinsi'] ?></strong></p>
-                            </div>
-                        </div>
-                        <a href="" class="btn btn-primary btn-block">Update Data Diri</a>
-                    <?php }
+                    </div>
+                    <button type="button" data-toggle="modal" data-target=".modalUpdateDiri_<?= $get_data_diri['id_account'] ?>" class="btn btn-primary btn-block">Update Data Diri</button>
+                <?php }
                 ?>
             </div>
         </div>
@@ -319,7 +303,7 @@
                 <h5 class="text-uppercase"><strong>CV</strong></h5>
             </div>
             <div class="card-body">
-                <p class="text-center">Anda belum mengisi CV Anda</p>
+                <p class="text-center">Fitur masih dalam tahap pengembangan</p>
             </div>
             <div class="card-footer">
                 <div class="d-flex d-none">
@@ -329,6 +313,104 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade modalUpdateDiri_<?= $get_data_diri['id_account']; ?>" tab-index="-1" role="dialog" aria-labelledby="modalUpdateDiri" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5>Update Data Diri</h5>
+            </div>
+            <form action="<?= base_url('user/update_data_diri') ?>" method="post">
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    if ($get_data_diri['nisn'] == null) { ?>
+                                        <input type="text" name="nisn" id="NISN" class="form-control" placeholder="-">
+                                    <?php } else { ?>
+                                        <input type="text" name="nisn" id="NISN" class="form-control" value="<?= $get_data_diri['nisn']; ?>" readonly>
+                                    <?php }
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" name="nama" id="nama" class="form-control" value="<?= $get_data_diri['nama']; ?>" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-building"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" name="tempat_lahir" id="Tempat_Lahir" class="form-control" value="<?= $get_data_diri['tempat_lahir'] ?>">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-briefcase"></i>
+                                        </div>
+                                    </div>
+                                    <input type="date" name="tanggal_lahir" id="Tanggal_Lahir" class="form-control" value="<?= $get_data_diri['tanggal_lahir'] ?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" name="jenis_kelamin" id="Jenis_Kelamin" class="form-control" value="<?= $get_data_diri['jenis_kelamin']; ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" name="agama" id="Agama" class="form-control" value="<?= $get_data_diri['agama']; ?>" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="alamat" id="Alamat" cols="30" rows="10"><?= $get_data_diri['alamat'] ?></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary btn-md">Update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="modal fade modalKampus" tab-index="-1" role="dialog" aria-labelledby="modalTambahKampus" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -535,14 +617,14 @@
     </div>
 </div>
 
-<div class="modal fade modalFoto" tab-index="-1" role="dialog" aria-labelledby="modalTambahJob" aria-hidden="true">
+<div class="modal fade modalUpdateFoto_<?= $get_data_diri['id_account'] ?>" tab-index="-1" role="dialog" aria-labelledby="modalTambahJob" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5>Upload Foto</h5>
             </div>
             <div class="modal-body">
-                <?php echo form_open_multipart('user/upload_foto'); ?>
+                <?php echo form_open_multipart('user/update_foto'); ?>
                 <div class="card-body">
                     <div class="input-group mb-3">
                         <div class="input-group-append">

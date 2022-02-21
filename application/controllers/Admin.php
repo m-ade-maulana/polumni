@@ -19,11 +19,26 @@ class Admin extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Data_alumni_model', 'data_alumni');
+    }
     public function index()
     {
         $this->load->view('admin/template/header');
         $this->load->view('admin/dashboard');
         $this->load->view('admin/template/footer');
+    }
+
+    public function dataAlumni()
+    {
+        $data['alumni'] = $this->data_alumni->get_alumni()->result_array();
+
+        $this->load->view('admin/template/header', $data);
+        $this->load->view('admin/data_alumni', $data);
+        $this->load->view('admin/template/footer', $data);
     }
 
     public function formkarir()
@@ -38,10 +53,12 @@ class Admin extends CI_Controller
 
     public function tambahKarir()
     {
+        $id = random_int(100000, 999999);
 
         $config['upload_path']          = './upload/image-job';
         $config['allowed_types']        = 'jpg|png';
         $config['max_size']             = 1000;
+        $config['file_name']            = $id;
         // $config['encrypt_name'] 		= true;
         $this->load->library('upload', $config);
 
@@ -61,7 +78,7 @@ class Admin extends CI_Controller
         } else {
             $upload = $this->upload->data();
             $data = [
-                'id_jobs' => random_int(100000, 999999),
+                'id_jobs' => $id,
                 'nama_perusahaan' => $this->input->post('nama_perusahaan'),
                 'posisi' => $this->input->post('posisi'),
                 'penempatan' => $this->input->post('penempatan'),
@@ -100,5 +117,13 @@ class Admin extends CI_Controller
                 redirect('admin/formkarir');
             }
         }
+    }
+
+    public function deletejobs($id_jobs)
+    {
+        $logo = $this->db->get_where('tb_lowongan_kerja', ['id_jobs' => $id_jobs])->row_array();
+        $this->db->where(['id_jobs' => $id_jobs]);
+        $this->db->delete('tb_lowongan_kerja');
+        unlink('upload/image-job/' . $logo['logo_perusahaan']);
     }
 }

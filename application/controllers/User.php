@@ -23,6 +23,7 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->load->model('users_model', 'usermodel');
+        $this->load->model('M_database_model', 'dbm');
 
         $name = $this->session->userdata('nama');
         if (empty($name)) {
@@ -32,16 +33,22 @@ class User extends CI_Controller
     public function index()
     {
         $data['title'] = "Portal Alumni - Dashboard";
-    
-        $data['id_account'] = $this->session->userdata('id_account');
-        $data['nama'] = $this->session->userdata('id_account');
 
         $id_account = $this->session->userdata('id_account');
-        $data['get_data'] = $this->db->get_where('tb_registered', ['id_account' => $id_account])->result_array();
+        $active = $this->session->userdata('is_active');
 
-        $data['get_data_kampus'] = $this->db->get_where('tb_universitas', ['id_account' => $id_account])->result_array();
-        $data['get_data_pekerjaan'] = $this->db->get_where('tb_pekerjaan', ['id_account' => $id_account])->result_array();
-        $data['get_foto_profile'] = $this->db->get_where('tb_foto_profile', ['id_account' => $id_account])->row_array();
+        $data['id_account'] = $this->session->userdata('id_account');
+        $data['nama'] = $this->session->userdata('nama');
+
+        $data['get_data_active'] = $this->dbm->read_part('tb_registered', 'is_active', 1)->num_rows();
+        $data['get_data_not_active'] = $this->dbm->read_part('tb_registered', 'is_active', 0)->num_rows();
+        $data['get_data_all_data'] = $this->dbm->read_all('tb_registered')->num_rows();
+
+        $data['get_data'] = $this->db->get_where('tb_registered', ['id_account' => $id_account])->result_array();
+        $data['get_data_diri'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
+        $data['get_data_kampus'] = $this->dbm->read_part('tb_universitas', 'id_account', $id_account)->result_array();
+        $data['get_data_pekerjaan'] = $this->dbm->read_part('tb_pekerjaan', 'id_account', $id_account)->result_array();
+        $data['get_data'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
 
         $this->load->view('user/template/header', $data);
         $this->load->view('user/dashboard', $data);
@@ -54,13 +61,14 @@ class User extends CI_Controller
 
         $data['id_account'] = $this->session->userdata('id_account');
         $data['nama'] = $this->session->userdata('nama');
+        $data['tanggal_lahir'] = $this->session->userdata('tanggal_lahir');
 
         $id_account = $this->session->userdata('id_account');
         $data['get_data'] = $this->db->get_where('tb_registered', ['id_account' => $id_account])->result_array();
-        $data['get_data_diri'] = $this->db->get_where('tb_data_diri', ['id_account' =>$id_account])->row_array();
-        $data['get_data_kampus'] = $this->db->get_where('tb_universitas', ['id_account' => $id_account])->result_array();
-        $data['get_data_pekerjaan'] = $this->db->get_where('tb_pekerjaan', ['id_account' => $id_account])->result_array();
-        $data['get_foto_profile'] = $this->db->get_where('tb_foto_profile', ['id_account' => $id_account])->row_array();
+        $data['get_data_diri'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
+        $data['get_data_kampus'] = $this->dbm->read_part('tb_universitas', 'id_account', $id_account)->result_array();
+        $data['get_data_pekerjaan'] = $this->dbm->read_part('tb_pekerjaan', 'id_account', $id_account)->result_array();
+        $data['get_data'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
 
         $this->load->view('user/template/header', $data);
         $this->load->view('user/profile', $data);
@@ -75,10 +83,10 @@ class User extends CI_Controller
 
         $data['id_account'] = $this->session->userdata('id_account');
         $data['nama'] = $this->session->userdata('nama');
-        $data['get_foto_profile'] = $this->db->get_where('tb_foto_profile', ['id_account' => $id_account])->row_array();
-        // $data['id'] = random_int(100000, 999999);
+        $data['get_data'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
         $data['get_lowongan'] = $this->db->get('tb_lowongan_kerja')->result_array();
-        $data['get_data_alumni_all'] = $this->usermodel->join_data()->result_array();
+        $data['get_data_alumni_all'] = $this->dbm->read_by_year('tb_data_diri')->result_array();
+
         $this->load->view('user/template/header', $data);
         $this->load->view('user/bukululusan', $data);
         $this->load->view('user/template/footer', $data);
@@ -92,12 +100,7 @@ class User extends CI_Controller
         $data['nama'] = $this->session->userdata('nama');
 
         $id_account = $this->session->userdata('id_account');
-        $data['get_data'] = $this->db->get_where('tb_registered', ['id_account' => $id_account])->result_array();
-
-        $data['get_data_kampus'] = $this->db->get_where('tb_universitas', ['id_account' => $id_account])->result_array();
-        $data['get_data_pekerjaan'] = $this->db->get_where('tb_pekerjaan', ['id_account' => $id_account])->result_array();
-        $data['get_foto_profile'] = $this->db->get_where('tb_foto_profile', ['id_account' => $id_account])->row_array();
-
+        $data['get_data'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
         $data['get_lowongan'] = $this->db->get('tb_lowongan_kerja')->result_array();
 
         $this->load->view('user/template/header', $data);
@@ -126,45 +129,104 @@ class User extends CI_Controller
         $this->load->view('user/template/footer', $data);
     }
 
+    public function acara()
+    {
+        $data['title'] = "Portal Alumni - Donasi";
+
+        $data['id_account'] = $this->session->userdata('id_account');
+        $data['nama'] = $this->session->userdata('nama');
+
+        $id_account = $this->session->userdata('id_account');
+        $data['get_data'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
+        $data['get_lowongan'] = $this->db->get('tb_lowongan_kerja')->result_array();
+
+        $this->load->view('user/template/header', $data);
+        $this->load->view('user/donasi', $data);
+        $this->load->view('user/template/footer', $data);
+    }
+
+    public function donasi()
+    {
+        $data['title'] = "Portal Alumni - Donasi";
+
+        $data['id_account'] = $this->session->userdata('id_account');
+        $data['nama'] = $this->session->userdata('nama');
+
+        $id_account = $this->session->userdata('id_account');
+        $data['get_data'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
+        $data['get_lowongan'] = $this->db->get('tb_lowongan_kerja')->result_array();
+
+        $this->load->view('user/template/header', $data);
+        $this->load->view('user/donasi', $data);
+        $this->load->view('user/template/footer', $data);
+    }
+
+    // Sistem
     public function save_data_diri()
     {
-        $data = [
-            'nisn' => htmlspecialchars($this->input->post('nisn')),
-            'nama' => htmlspecialchars($this->input->post('nama')),
-            'tempat_lahir' => htmlspecialchars($this->input->post('tempat_lahir')),
-            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-            'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin')),
-            'agama' => htmlspecialchars($this->input->post('agama')),
-            'provinsi' => htmlspecialchars($this->input->post('provinsi')),
-            'kota' => htmlspecialchars($this->input->post('kota')),
-            'kecamatan' => htmlspecialchars($this->input->post('kecamatan')),
-            'telepon' => htmlspecialchars($this->input->post('telepon')),
-            'alamat' => htmlspecialchars($this->input->post('alamat')),
-        ];
+        $id_account = $this->session->userdata('id_account');
 
-        $insert = $this->usermodel->save_data_diri('tb_data_diri', $data);
-        if ($insert) {
-            $this->session->set_flashdata(
-                'message',
-                '<div class="alert alert-success" role="alert">
+        $config['upload_path']          = './upload/image/profile';
+        $config['allowed_types']        = 'jpg|png';
+        $config['max_size']             = 1000;
+        $config['file_name']            = $id_account;
+        // $config['encrypt_name'] 		= true;
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('foto_profile')) {
+            if ($this->upload->data('file_size') > 100) {
+                $this->session->set_flashdata(
+                    'message',
+                    '<div class="alert alert-danger" role="alert">
+                    <strong>Failed!</strong> Ukuran foto tidak boleh lebih dari 1Mb dan format file harus jpg atau png
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>'
+                );
+                redirect('user/profile');
+            }
+        } else {
+            $upload = $this->upload->data();
+            $data = [
+                'id_account' => $id_account,
+                'nisn' => htmlspecialchars($this->input->post('nisn')),
+                'nama' => htmlspecialchars($this->input->post('nama')),
+                'tempat_lahir' => htmlspecialchars($this->input->post('tempat_lahir')),
+                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin')),
+                'agama' => htmlspecialchars($this->input->post('agama')),
+                'telepon' => htmlspecialchars($this->input->post('telepon')),
+                'alamat' => htmlspecialchars($this->input->post('alamat')),
+                'foto' => $upload['file_name'],
+            ];
+            $result = $this->db->insert('tb_data_diri', $data);
+            // var_dump($data);
+            if ($result) {
+                $this->session->set_flashdata(
+                    'message',
+                    '<div class="alert alert-success" role="alert">
                     <strong>Sukses!</strong> berhasil menambahkan data
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>'
-            );
-            redirect('user/profile');
-        } else {
-            $this->session->set_flashdata(
-                'message',
-                '<div class="alert alert-danger" role="alert">
-                    <strong>Gagal!</strong> menambahkan data
+                );
+                redirect('user/profile');
+                // var_dump($result);
+            } else {
+                $this->session->set_flashdata(
+                    'message',
+                    '<div class="alert alert-danger" role="alert">
+                    <strong>Failed!</strong> gagal upload foto
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>'
-            );
-            redirect('user/profile');
+                );
+                redirect('user/profile');
+                // var_dump($result);
+            }
         }
     }
 
@@ -244,77 +306,73 @@ class User extends CI_Controller
         }
     }
 
-    public function upload_foto()
+    public function update_data_diri()
     {
-        // echo "upload disini";
+    }
+
+    public function update_foto()
+    {
+        $this->load->helper('file');
+
         $id_account = $this->session->userdata('id_account');
-        $nama = $this->session->userdata('nama');
+        $file_old = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
 
-        $config['upload_path']          = './upload/image/profile';
-        $config['allowed_types']        = 'jpg|png';
-        $config['max_size']             = 1000;
-        // $config['encrypt_name'] 		= true;
-        $this->load->library('upload', $config);
+        $filename = './upload/image/profile/' . $file_old['foto'];
+        if (unlink($filename)) {
+            $config['upload_path']          = './upload/image/profile';
+            $config['allowed_types']        = 'jpg|png';
+            $config['max_size']             = 1000;
+            $config['file_name']            = $id_account;
+            // $config['encrypt_name'] 		= true;
+            $this->load->library('upload', $config);
 
-        if (!$this->upload->do_upload('foto_profile')) {
-            if ($this->upload->data('file_size') > 100) {
-                $this->session->set_flashdata(
-                    'message',
-                    '<div class="alert alert-danger" role="alert">
-                        <strong>Failed!</strong> Ukuran foto tidak boleh lebih dari 1Mb dan format file harus jpg atau png
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>'
-                );
-                redirect('user/profile');
-            }
-        } else {
-            $upload = $this->upload->data();
-            $data = [
-                'id_account' => $id_account,
-                'nama' => $nama,
-                'foto' => $upload['file_name']
-            ];
-            $result = $this->db->insert('tb_foto_profile', $data);
-            // var_dump($data);
-            if ($result) {
-                $this->session->set_flashdata(
-                    'message',
-                    '<div class="alert alert-success" role="alert">
-                        <strong>Sukses!</strong> berhasil menambahkan data
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>'
-                );
-                redirect('user/profile');
+            if (!$this->upload->do_upload('foto_profile')) {
+                if ($this->upload->data('file_size') > 100) {
+                    $this->session->set_flashdata(
+                        'message',
+                        '<div class="alert alert-danger" role="alert">
+                            <strong>Failed!</strong> Ukuran foto tidak boleh lebih dari 1Mb dan format file harus jpg atau png
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>'
+                    );
+                    redirect('user/profile');
+                }
             } else {
-                $this->session->set_flashdata(
-                    'message',
-                    '<div class="alert alert-danger" role="alert">
-                        <strong>Failed!</strong> gagal upload foto
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>'
-                );
-                redirect('user/profile');
+
+                $upload = $this->upload->data();
+
+                $data = [
+                    'foto' => $upload['file_name'],
+                ];
+
+                $result = $this->dbm->update('id_account', $id_account, 'tb_data_diri', $data);
+                // var_dump($data);
+                if ($result) {
+                    $this->session->set_flashdata(
+                        'message',
+                        '<div class="alert alert-success" role="alert">
+                            <strong>Sukses!</strong> berhasil update foto
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>'
+                    );
+                    redirect('user/profile');
+                } else {
+                    $this->session->set_flashdata(
+                        'message',
+                        '<div class="alert alert-danger" role="alert">
+                            <strong>Failed!</strong> gagal update foto
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>'
+                    );
+                    redirect('user/profile');
+                }
             }
         }
-
-        // if ($this->upload->do_upload('foto_profile')) {
-
-        //     $uploadData = $this->upload->data();
-
-        //     $data = [
-        //         'id_akun' => $id_account,
-        //         'nama' => $nama,
-        //         'foto' => $uploadData['file_name']
-        //     ];
-        //     // $this->db->insert('tb_foto_profile', $data);
-        //     var_dump($data);
-        // }
-        // // redirect('profile');
     }
 }

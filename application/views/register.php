@@ -24,7 +24,7 @@
 
 
         .cardbody-color {
-            background-color: #ebf2fa;
+            background-color: #FFD32D;
         }
 
         a {
@@ -32,36 +32,42 @@
         }
     </style>
 
-    <title>Document</title>
+    <title><?= $title ?></title>
 </head>
 
 <body>
-
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <?= $this->session->flashdata('message') ?>
-                <div class="card my-4">
+                <div class="card shadow my-4">
                     <form action="<?= base_url('auth/register') ?>" method="POST" class="card-body cardbody-color p-lg-5">
 
                         <div class="text-center mb-4">
-                            <h4>Registered Account</h4>
+                            <h4 class="font-weight-bold ">Registered Account</h4>
                         </div>
 
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="nama" id="Username" placeholder="Nama">
+                            <input type="text" class="form-control" name="nama" id="Username" placeholder="Nama" value="<?= set_value('nama') ?>">
+                            <div class="mt-2"><?= form_error('nama') ?></div>
                         </div>
                         <div class="mb-3">
-                            <input type="date" name="tanggalLahir" class="form-control" id="password" placeholder="Tanggal Lahir">
+                            <input type="date" name="tanggalLahir" class="form-control" id="password" placeholder="Tanggal Lahir" value="<?= set_value('tanggalLahir') ?>">
+                            <div class=" mt-2"><?= form_error('tanggalLahir') ?>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" name="username" class="form-control" id="password" placeholder="Username">
-                        </div>
-                        <div class="mb-3">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="<?= set_value('email') ?>">
+                            <div class=" mt-2"><?= form_error('email') ?>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="username" class="form-control" id="password" placeholder="Username" value="<?= set_value('username') ?>">
+                                <div class="mt-2"><?= form_error('username') ?></div>
+                            </div>
+                            <div class="mb-3">
+                            </div>
                             <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                            <div class="mt-2"><?= form_error('password') ?></div>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-block btn-color px-5 mb-5">Registered</button>

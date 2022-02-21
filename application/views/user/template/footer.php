@@ -8,7 +8,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
+            <span>Copyright &copy; Portal Alumni SMK Nusantara 1 Tangerang 2021</span>
         </div>
     </div>
 </footer>
@@ -36,7 +36,7 @@
 <script src="<?= base_url('assets/js/sb-admin-2.min.js') ?>"></script>
 
 <!-- Page level plugins -->
-<script src="<?= base_url('assets/vendor/chart.js/Chart.min.js') ?>"></script>
+<scrip t src="<?= base_url('assets/vendor/chart.js/Chart.min.js') ?>"></scrip>
 
 <!-- Page level custom scripts -->
 <script src="<?= base_url('assets/js/demo/chart-area-demo.js') ?>"></script>
@@ -44,10 +44,24 @@
 
 <script src="<?= base_url('assets/vendor/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.js') ?>"></script>
+<!-- Page level plugins -->
+<script src="<?= base_url('assets/vendor/datatables/jquery.dataTables.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.js') ?>"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table').DataTable();
+    });
+
+    $(document).ready(function() {
+        // var groupColumn = 2;
+        $('#dataTable').DataTable({
+            pageLength: 5,
+            lengthMenu: [
+                [5, 10, 20, -1],
+                [5, 10, 20, 'Todos']
+            ]
+        });
     });
 
     $(document).ready(function() {

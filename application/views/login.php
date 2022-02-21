@@ -24,7 +24,8 @@
 
 
         .cardbody-color {
-            background-color: #ebf2fa;
+            /* background-color: #ebf2fa; */
+            background-color: #FFD32D;
         }
 
         a {
@@ -36,12 +37,11 @@
 </head>
 
 <body>
-
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <?= $this->session->flashdata('message') ?>
-                <div class="card my-4">
+                <div class="card shadow my-4">
                     <form action="<?= base_url('auth/login') ?>" method="POST" class="card-body cardbody-color p-lg-5">
 
                         <div class="text-center">
@@ -49,10 +49,16 @@
                         </div>
 
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="username" id="Username" aria-describedby="emailHelp" placeholder="Username">
+                            <input type="text" class="form-control" name="username" id="Username" aria-describedby="emailHelp" placeholder="Username" value="<?= set_value('username') ?>">
+                            <div class="mt-2 text-danger">
+                                <?= form_error('username') ?>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <input type="password" name="password" class="form-control" id="password" placeholder="password">
+                            <div class="mt-2 text-danger">
+                                <?= form_error('password') ?>
+                            </div>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-block btn-color px-5 mb-5">Login</button>

@@ -6,7 +6,9 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('users_model', 'save');
+        $this->load->library('email', 'form_validation');
+        $this->load->model('M_database_model', 'dbm');
+        $this->load->model('M_email', 'email_message');
     }
     public function index()
     {
@@ -15,40 +17,82 @@ class Auth extends CI_Controller
     }
 
     public function registered()
-    {   
+    {
         $data['title'] = "Portal Alumni - Registered";
+        $data['favicon'] = "logo.png";
 
-        $this->load->view('register');
+        $this->load->view('register', $data);
+    }
+
+    public function activation()
+    {
+        $data['title'] = "Portal Alumni - RAktivasi";
+        $data['favicon'] = "logo.png";
+
+        $this->load->view('activasi', $data);
     }
 
     public function login()
     {
-        $username = htmlspecialchars($this->input->post('username'));
-        $password = htmlspecialchars($this->input->post('password'));
+        $this->form_validation->set_rules('username', 'Username', 'trim|required');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
 
-        $result = $this->db->get_where('tb_registered', ['username' => $username])->row_array();
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = "Portal Alumni - Login";
+            $this->load->view('login', $data);
+        } else {
+            $username = htmlspecialchars($this->input->post('username'));
+            $password = htmlspecialchars($this->input->post('password'));
 
-        if ($result) {
-            if ($result['username'] == $username) {
-                if ($result['password'] == $password) {
-                    $data = [
-                        'id_account' => $result['id_account'],
-                        'nama' => $result['nama'],
-                        'tanggal_lahir' => $result['tanggal_lahir'],
-                        'email' => $result['email']
-                    ];
+            $result = $this->db->get_where('tb_registered', ['username' => $username])->row_array();
 
-                    $this->session->set_userdata($data);
-                    redirect('user', $data);
-                } else {
-                    $this->session->set_flashdata(
-                        'message',
-                        '<div class="alert alert-danger" role="alert">
+            if ($result) {
+                if ($result['username'] == $username) {
+                    if (password_verify($password, $result['password'])) {
+                        if ($result['is_active'] == 1) {
+                            $data = [
+                                'id_account' => $result['id_account'],
+                                'nama' => $result['nama'],
+                                'tanggal_lahir' => $result['tanggal_lahir'],
+                                'email' => $result['email'],
+                                'is_active' => $result['is_active']
+                            ];
+
+                            $this->session->set_userdata($data);
+                            redirect('user', $data);
+                        } else {
+                            $this->session->set_flashdata(
+                                'message',
+                                '<div class="alert alert-danger" role="alert">
+                            <strong>Failed !</strong> Akun anda belum aktif silahkan aktifkan dahulu
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>'
+                            );
+                            redirect('auth');
+                        }
+                    } else {
+                        $this->session->set_flashdata(
+                            'message',
+                            '<div class="alert alert-danger" role="alert">
                             <strong>Failed !</strong> Password anda salah
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>'
+                        );
+                        redirect('auth');
+                    }
+                } else {
+                    $this->session->set_flashdata(
+                        'message',
+                        '<div class="alert alert-danger" role="alert">
+                        <strong>Failed !</strong> Username anda salah
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>'
                     );
                     redirect('auth');
                 }
@@ -56,7 +100,7 @@ class Auth extends CI_Controller
                 $this->session->set_flashdata(
                     'message',
                     '<div class="alert alert-danger" role="alert">
-                        <strong>Failed !</strong> Username anda salah
+                        Data tidak ditemukan
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -64,54 +108,103 @@ class Auth extends CI_Controller
                 );
                 redirect('auth');
             }
+        }
+    }
+
+    public function register()
+    {
+        // $this->load->model('M_validation_model', 'validation');
+        // $this->validation->reg_valid();
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('tanggalLahir', 'TanggalLahir', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[tb_registered.email]');
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[6]|is_unique[tb_registered.username]');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[12]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['title'] = "Portal Alumni - Registered";
+            $data['favicon'] = "logo.png";
+
+            $this->load->view('register', $data);
         } else {
+            $data = [
+                'id_account' => random_int(000000, 999999),
+                'nama' => htmlspecialchars($this->input->post('nama')),
+                'tanggal_lahir' => $this->input->post('tanggalLahir'),
+                'email' => htmlspecialchars($this->input->post('email')),
+                'username' => htmlspecialchars($this->input->post('username')),
+                'password' => password_hash(htmlspecialchars($this->input->post('password')), PASSWORD_DEFAULT),
+                'role' => '2',
+                'is_active' => '0'
+            ];
+
+            $insert = $this->dbm->create('tb_registered', $data);
+            if ($insert) {
+
+                $sending = $this->email_message->message($this->input->post('email'));
+
+                if ($sending == TRUE) {
+                    $this->session->set_flashdata(
+                        'message',
+                        '<div class="alert alert-success" role="alert">
+                        <strong>Sukses!</strong> silahkan periksa email anda untuk aktivasi
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>'
+                    );
+                    redirect('auth');
+                    // var_dump($sending);
+                } else {
+                    $this->session->set_flashdata(
+                        'message',
+                        '<div class="alert alert-success" role="alert">
+                        <strong>Sukses!</strong> jika email aktivasi tidak terkirim silahkan hubungi admin
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>'
+                    );
+                    redirect('auth');
+                    // var_dump($sending);
+                }
+            } else {
+                $this->session->set_flashdata(
+                    'message',
+                    '<div class="alert alert-danger" role="alert">
+                    <strong>Gagal!</strong> menambahkan data
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>'
+                );
+                redirect('auth/registered');
+            }
+        }
+    }
+
+    public function aktif()
+    {
+        $email = htmlspecialchars($this->input->post('email'));
+
+        $data = [
+            'is_active' => 1
+        ];
+
+        $this->db->where('email', $email);
+        $result = $this->db->update('tb_registered', $data);
+        if ($result) {
             $this->session->set_flashdata(
                 'message',
-                '<div class="alert alert-danger" role="alert">
-                        Data tidak ditemukan
+                '<div class="alert alert-success" role="alert">
+                        Selamat akun anda telah aktif silahkan masuk dengan akun anda
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>'
             );
             redirect('auth');
-        }
-    }
-
-    public function register()
-    {
-        $data = [
-            'nama' => htmlspecialchars($this->input->post('nama')),
-            'tanggal_lahir' => $this->input->post('tanggalLahir'),
-            'email' => htmlspecialchars($this->input->post('email')),
-            'username' => htmlspecialchars($this->input->post('username')),
-            'password' => htmlspecialchars($this->input->post('password')),
-            'role' => '2'
-        ];
-
-        $insert = $this->save->save_data('tb_registered', $data);
-        if ($insert) {
-            $this->session->set_flashdata(
-                'message',
-                '<div class="alert alert-success" role="alert">
-                    <strong>Sukses!</strong> berhasil menambahkan data
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>'
-            );
-            redirect('auth');
-        } else {
-            $this->session->set_flashdata(
-                'message',
-                '<div class="alert alert-danger" role="alert">
-                    <strong>Gagal!</strong> menambahkan data
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>'
-            );
-            redirect('auth/registered');
         }
     }
 

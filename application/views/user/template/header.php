@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/css/sb-admin-2.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet">
 
     <!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
 
@@ -43,38 +44,57 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item <?php if ($this->uri->segment(2) == '') {
+                                    echo "active";
+                                } ?>">
                 <a class="nav-link" href="<?= base_url('user') ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'profile') {
+                                    echo "active";
+                                } ?>">
                 <a class="nav-link" href="<?= base_url('user/profile') ?>">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Profile</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'bukululusan') {
+                                    echo "active";
+                                } ?>">
                 <a class="nav-link" href="<?= base_url('user/bukululusan') ?>">
                     <i class="fas fa-fw fa-graduation-cap"></i>
                     <span>Buku Lulusan</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'karir') {
+                                    echo "active";
+                                } ?>">
                 <a class="nav-link" href="<?= base_url('user/karir') ?>">
                     <i class="fas fa-fw fa-briefcase"></i>
                     <span>Karir</span>
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'acara') {
+                                    echo "active";
+                                } ?>">
+                <a class="nav-link" href="<?= base_url('user/acara') ?>">
                     <i class="fas fa-fw fa-book-open"></i>
                     <span>Agenda Acara</span>
+                </a>
+            </li>
+
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'donasi') {
+                                    echo "active";
+                                } ?>">
+                <a class="nav-link" href="<?= base_url('user/donasi') ?>">
+                    <i class="fas fa-fw fa-dollar-sign"></i>
+                    <span>Donasi</span>
                 </a>
             </li>
 
@@ -139,10 +159,10 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $nama ?></span>
                                 <?php
-                                if ($get_foto_profile == null) { ?>
+                                if ($get_data['foto'] == null) { ?>
                                     <img src="<?= base_url('assets/img/undraw_profile.svg') ?>" alt="" srcset="" class="img-profile rounded-circle">
                                 <?php } else { ?>
-                                    <img src="<?= base_url('upload/image/profile/' . $get_foto_profile['foto']) ?>" alt="" srcset="" class="img-profile rounded-circle" width="300" height="350">
+                                    <img src="<?= base_url('upload/image/profile/' . $get_data['foto']) ?>" alt="" srcset="" class="img-profile rounded-circle" width="300" height="350">
                                 <?php }
                                 ?>
                             </a>

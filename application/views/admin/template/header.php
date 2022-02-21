@@ -18,23 +18,11 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/css/sb-admin-2.min.css') ?>" rel="stylesheet">
 
+    <script src="https://cdn.tiny.cloud/1/9zq6w4xyf8u7z1j8pt5jzdnratl45b945dmmi3m4lhmerymj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 </head>
 
 <body id="page-top">
-    <div class="navbar navbar-expand-sm navbar-dark bg-dark" id="stickyNavbar">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-phone"></i> 0123456789
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-envelope"></i> ademaulana464@gmail.com
-                </a>
-            </li>
-        </ul>
-    </div>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -54,14 +42,14 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('admin') ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('admin/dataAlumni') ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Data Alumni</span>
                 </a>

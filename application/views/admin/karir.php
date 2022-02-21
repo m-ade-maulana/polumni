@@ -14,7 +14,7 @@
 </div>
 
 <?php
-$numOfCols = 2;
+$numOfCols = 1;
 $rowCount = 0;
 $bootstrapColWidth = 12 / $numOfCols;
 foreach ($get_lowongan as $gl) {
@@ -23,16 +23,16 @@ foreach ($get_lowongan as $gl) {
         <div class="col-sm-<?= $bootstrapColWidth ?>">
             <div class="card mb-3">
                 <div class="row no-gutters">
-                    <div class="col-md-4 ">
-                        <img src="<?= base_url('upload/image-job/' . $gl['logo_perusahaan']); ?>" class="img-fluid" alt="...">
+                    <div class="col-md-3">
+                        <img src="<?= base_url('upload/image-job/' . $gl['logo_perusahaan']); ?>" class="card-img" alt="..." width="100" height="300">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="card-body">
                             <h4 class="card-title text-danger text-uppercase"><strong><?= $gl['posisi'] ?></strong></h4>
                             <p class="card-text text-justify"><?= $gl['deskripsi'] ?></p>
                             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            <a href="#" class="btn btn-danger btn-sm">Deleted Jobs</a>
-                            <a href="#" class="btn btn-success btn-sm">Edit Jobs</a>
+                            <a href="<?= base_url('admin/deletejobs/' . $gl['id_jobs']) ?>" class="btn btn-danger btn-sm">Deleted Jobs</a>
+                            <a href="<?= base_url('admin/delete/' . $gl['id_jobs']) ?>" class="btn btn-success btn-sm">Edit Jobs</a>
                         </div>
                     </div>
                 </div>
@@ -80,11 +80,21 @@ foreach ($get_lowongan as $gl) {
                         <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="5" placeholder="Alamat" required></textarea>
                     </div>
                     <div class="input-group mb-3">
-                        <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="5" placeholder="Deskripsi Pekerjaan" required></textarea>
+                        <textarea class="form-control" name="deskripsi" id="deskripsi" cols="50" rows="5" placeholder="Deskripsi Pekerjaan" required></textarea>
                     </div>
                     <div class="input-group mb-3">
                         <textarea class="form-control" name="persyaratan" id="persyaratan" cols="30" rows="5" placeholder="Persyaratan" required></textarea>
                     </div>
+                    <script type="text/javascript">
+                        tinymce.init({
+                            selector: 'textarea',
+                            menubar: false,
+                            width: '100%',
+                            plugins: 'lists',
+                            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist'
+                        });
+                        tinymce.triggerSave();
+                    </script>
                     <div class="input-group mb-3">
                         <div class="input-group-append">
                             <div class="input-group-text">
