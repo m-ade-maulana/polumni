@@ -55,6 +55,27 @@ class User extends CI_Controller
         $this->load->view('user/template/footer', $data);
     }
 
+    public function isi_profile()
+    {
+        $data['title'] = "Portal Alumni - Profile";
+
+        $data['id_account'] = $this->session->userdata('id_account');
+        $data['nama'] = $this->session->userdata('nama');
+        $data['tanggal_lahir'] = $this->session->userdata('tanggal_lahir');
+
+        $id_account = $this->session->userdata('id_account');
+        $data['get_data'] = $this->db->get_where('tb_registered', ['id_account' => $id_account])->result_array();
+        $data['get_data_diri'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
+        $data['get_data_diri_a'] = $this->db->get_where('tb_data_diri', ['id_account' => $id_account])->result_array();
+        $data['get_data_kampus'] = $this->dbm->read_part('tb_universitas', 'id_account', $id_account)->row_array();
+        $data['get_data_pekerjaan'] = $this->dbm->read_part('tb_pekerjaan', 'id_account', $id_account)->row_array();
+        $data['get_data'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
+
+        $this->load->view('user/template/header', $data);
+        $this->load->view('user/isi_profile', $data);
+        $this->load->view('user/template/footer', $data);
+    }
+
     public function profile()
     {
         $data['title'] = "Portal Alumni - Profile";
@@ -66,12 +87,13 @@ class User extends CI_Controller
         $id_account = $this->session->userdata('id_account');
         $data['get_data'] = $this->db->get_where('tb_registered', ['id_account' => $id_account])->result_array();
         $data['get_data_diri'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
+        $data['get_data_diri_a'] = $this->db->get_where('tb_data_diri', ['id_account' => $id_account])->row_array();
         $data['get_data_kampus'] = $this->dbm->read_part('tb_universitas', 'id_account', $id_account)->result_array();
         $data['get_data_pekerjaan'] = $this->dbm->read_part('tb_pekerjaan', 'id_account', $id_account)->result_array();
         $data['get_data'] = $this->dbm->read_part('tb_data_diri', 'id_account', $id_account)->row_array();
 
         $this->load->view('user/template/header', $data);
-        $this->load->view('user/profile', $data);
+        $this->load->view('user/lihat_profile', $data);
         $this->load->view('user/template/footer', $data);
     }
 
@@ -184,7 +206,7 @@ class User extends CI_Controller
                     </button>
                 </div>'
                 );
-                redirect('user/profile');
+                redirect('user/isi_profile');
             }
         } else {
             $upload = $this->upload->data();
@@ -212,7 +234,7 @@ class User extends CI_Controller
                     </button>
                 </div>'
                 );
-                redirect('user/profile');
+                redirect('user/isi_profile');
                 // var_dump($result);
             } else {
                 $this->session->set_flashdata(
@@ -224,7 +246,7 @@ class User extends CI_Controller
                     </button>
                 </div>'
                 );
-                redirect('user/profile');
+                redirect('user/isi_profile');
                 // var_dump($result);
             }
         }
@@ -253,7 +275,7 @@ class User extends CI_Controller
                     </button>
                 </div>'
             );
-            redirect('user/profile');
+            redirect('user/isi_profile');
         } else {
             $this->session->set_flashdata(
                 'message',
@@ -264,7 +286,7 @@ class User extends CI_Controller
                     </button>
                 </div>'
             );
-            redirect('user/profile');
+            redirect('user/isi_profile');
         }
     }
 
@@ -291,7 +313,7 @@ class User extends CI_Controller
                     </button>
                 </div>'
             );
-            redirect('user/profile');
+            redirect('user/isi_profile');
         } else {
             $this->session->set_flashdata(
                 'message',
@@ -302,7 +324,7 @@ class User extends CI_Controller
                     </button>
                 </div>'
             );
-            redirect('user/profile');
+            redirect('user/isi_profile');
         }
     }
 
