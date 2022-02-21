@@ -22,6 +22,7 @@
     <link href="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet">
 
     <!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
@@ -53,13 +54,19 @@
                 </a>
             </li>
 
-            <li class="nav-item <?php if ($this->uri->segment(2) == 'profile') {
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'isi_profile' || $this->uri->segment(2) == 'profile') {
                                     echo "active";
                                 } ?>">
-                <a class="nav-link" href="<?= base_url('user/profile') ?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Profile</span>
                 </a>
+                <div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="<?= base_url('user/isi_profile') ?>">Isi Profile</a>
+                        <a class="collapse-item" href="<?= base_url('user/profile') ?>">Lihat Profile</a>
+                    </div>
+                </div>
             </li>
 
             <li class="nav-item <?php if ($this->uri->segment(2) == 'bukululusan') {
@@ -159,7 +166,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $nama ?></span>
                                 <?php
-                                if ($get_data['foto'] == null) { ?>
+                                if (isset($get_data['foto']) == null) { ?>
                                     <img src="<?= base_url('assets/img/undraw_profile.svg') ?>" alt="" srcset="" class="img-profile rounded-circle">
                                 <?php } else { ?>
                                     <img src="<?= base_url('upload/image/profile/' . $get_data['foto']) ?>" alt="" srcset="" class="img-profile rounded-circle" width="300" height="350">
