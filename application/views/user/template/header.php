@@ -83,7 +83,7 @@
                                 } ?>">
                 <a class="nav-link" href="<?= base_url('user/karir') ?>">
                     <i class="fas fa-fw fa-briefcase"></i>
-                    <span>Karir</span>
+                    <span>Info BKK</span>
                 </a>
             </li>
 
