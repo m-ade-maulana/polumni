@@ -10,6 +10,7 @@ class Auth extends CI_Controller
         $this->load->model('M_database_model', 'dbm');
         $this->load->model('M_email', 'email_message');
     }
+
     public function index()
     {
         $data['title'] = "Portal Alumni - Login";
@@ -20,15 +21,17 @@ class Auth extends CI_Controller
     {
         $data['title'] = "Portal Alumni - Registered";
         $data['favicon'] = "logo.png";
+        $token = "aktifkan";
+        $data['token'] = sha1($token);
 
         $this->load->view('register', $data);
     }
 
-    public function activation()
+    public function activation($token)
     {
-        $data['title'] = "Portal Alumni - RAktivasi";
+        $data['title'] = "Portal Alumni - Aktivasi";
         $data['favicon'] = "logo.png";
-
+        $data['get_token'] = $this->db->get_where('tb_registered', ['token' => $token])->row_array();
         $this->load->view('activasi', $data);
     }
 
@@ -128,6 +131,8 @@ class Auth extends CI_Controller
 
             $this->load->view('register', $data);
         } else {
+            $string = 'aktifkan';
+            $token = sha1($string);
             $data = [
                 'id_account' => random_int(000000, 999999),
                 'nama' => htmlspecialchars($this->input->post('nama')),
@@ -136,13 +141,13 @@ class Auth extends CI_Controller
                 'username' => htmlspecialchars($this->input->post('username')),
                 'password' => password_hash(htmlspecialchars($this->input->post('password')), PASSWORD_DEFAULT),
                 'role' => '2',
-                'is_active' => '0'
+                'is_active' => '0',
+                'token' => $token
             ];
 
             $insert = $this->dbm->create('tb_registered', $data);
             if ($insert) {
-
-                $sending = $this->email_message->message($this->input->post('email'));
+                $sending = $this->email_message->message($this->input->post('email'), $token);
 
                 if ($sending == TRUE) {
                     $this->session->set_flashdata(

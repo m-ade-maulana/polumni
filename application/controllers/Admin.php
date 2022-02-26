@@ -24,6 +24,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Data_alumni_model', 'data_alumni');
+        $this->load->model('M_database_model', 'dbm');
     }
     public function index()
     {
@@ -125,5 +126,14 @@ class Admin extends CI_Controller
         $this->db->where(['id_jobs' => $id_jobs]);
         $this->db->delete('tb_lowongan_kerja');
         unlink('upload/image-job/' . $logo['logo_perusahaan']);
+    }
+
+    public function activate()
+    {
+        $data['registered'] = $this->dbm->read_all('tb_registered')->result_array();
+
+        $this->load->view('admin/template/header');
+        $this->load->view('admin/aktif_akun', $data);
+        $this->load->view('admin/template/footer');
     }
 }

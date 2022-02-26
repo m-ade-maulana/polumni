@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_email extends CI_Model
 {
-    public function message($toEmail)
+    public function message($toEmail, $token)
     {
         $subject = 'Notification - noreply';
         $mes = '
@@ -44,7 +44,7 @@ class M_email extends CI_Model
                                                     <td style="padding:0 0 36px 0;color:#153643;">
                                                         <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif; text-align: center;" >Email Activation</h1>
                                                         <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif; text-align: center;">Silahkan klik tombol dibawah ini untuk aktivasi akun</p>
-                                                        <p style="text-align: center;"><a href="http://portalalumni.smk-nusantara1-kotang.sch.id/auth/activation" target="_blank" style="background-color:#4CAF50; border:none; border-radius: 5px; color: white; padding: 16px 13px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Aktivasi</a></p>
+                                                        <p style="text-align: center;"><a href="http://portalalumni.smk-nusantara1-kotang.sch.id/auth/activation/' . $token . '" target="_blank" style="background-color:#4CAF50; border:none; border-radius: 5px; color: white; padding: 16px 13px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;">Aktivasi</a></p>
                                                     </td>
                                                 </tr>
                                             </table>

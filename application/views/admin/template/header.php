@@ -12,14 +12,13 @@
     <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/css/sb-admin-2.min.css') ?>" rel="stylesheet">
 
     <script src="https://cdn.tiny.cloud/1/9zq6w4xyf8u7z1j8pt5jzdnratl45b945dmmi3m4lhmerymj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
+    <script src="https://kit.fontawesome.com/f724858d1a.js" crossorigin="anonymous"></script>
 </head>
 
 <body id="page-top">
@@ -30,9 +29,9 @@
         <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-3x fa-laugh-wink"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Polumni</div>
             </a>
@@ -41,21 +40,27 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="<?= base_url('admin') ?>">
+            <li class="nav-item <?php if ($this->uri->segment(2) == '') {
+                                    echo "active";
+                                } ?>">
+                <a class=" nav-link" href="<?= base_url('admin') ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'dataAlumni') {
+                                    echo "active";
+                                } ?>">
                 <a class="nav-link" href="<?= base_url('admin/dataAlumni') ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Data Alumni</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'formkarir') {
+                                    echo "active";
+                                } ?>">
                 <a class="nav-link" href="<?= base_url('admin/formkarir') ?>">
                     <i class="fas fa-fw fa-briefcase"></i>
                     <span>Info Lowongan</span>
@@ -73,6 +78,45 @@
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-comments"></i>
                     <span>Kuisioner</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'activate') {
+                                    echo "active";
+                                } ?>">
+                <a class="nav-link" href="<?= base_url('admin/activate') ?>">
+                    <i class="fas fa-fw fa-toggle-on"></i>
+                    <span>Activate Account</span>
+                </a>
+            </li>
+
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'setting') {
+                                    echo "active";
+                                } ?>">
+                <a class="nav-link" href="<?= base_url('admin/setting') ?>">
+                    <i class="fas fa-fw fa-cogs"></i>
+                    <span>Setting</span>
+                </a>
+            </li>
+
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'help') {
+                                    echo "active";
+                                } ?>">
+                <a class="nav-link" href="<?= base_url('admin/help') ?>">
+                    <i class="fas fa-fw fa-exclamation-circle"></i>
+                    <span>Help</span>
+                </a>
+            </li>
+
+            <li class="nav-item <?php if ($this->uri->segment(2) == 'logout') {
+                                    echo "active";
+                                } ?>">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Logout</span>
                 </a>
             </li>
 
@@ -96,12 +140,12 @@
             </li> -->
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
+            <!-- <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </div> -->
 
             <!-- Sidebar Message
             <div class="sidebar-card d-none d-lg-flex">

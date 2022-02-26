@@ -1,12 +1,11 @@
 <!-- Begin Page Content -->
-<div class="container-fluid mb-5">
-
-	<!-- Page Heading -->
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item active" aria-current="page">Data Alumni</li>
-		</ol>
-	</nav>
+<!-- Page Heading -->
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active" aria-current="page">Data Alumni</li>
+	</ol>
+</nav>
+<div class="container mb-5">
 
 	<!-- Show Data -->
 	<?php

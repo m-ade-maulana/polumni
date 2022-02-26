@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
+    <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
+
     <style type="text/css">
         .btn-color {
             background-color: #0e1c36;
@@ -48,25 +50,38 @@
                         </div>
 
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="nama" id="Username" placeholder="Nama" value="<?= set_value('nama') ?>">
+                            <input type="text" name="nama" id="Username" class="form-control" placeholder="Nama" value="<?= set_value('nama') ?>">
                             <div class="mt-2"><?= form_error('nama') ?></div>
                         </div>
                         <div class="mb-3">
                             <input type="date" name="tanggalLahir" class="form-control" id="password" placeholder="Tanggal Lahir" value="<?= set_value('tanggalLahir') ?>">
-                            <div class=" mt-2"><?= form_error('tanggalLahir') ?>
-                            </div>
+                            <div class=" mt-2"><?= form_error('tanggalLahir') ?></div>
                         </div>
                         <div class="mb-3">
                             <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="<?= set_value('email') ?>">
-                            <div class=" mt-2"><?= form_error('email') ?>
+                            <div class=" mt-2"><?= form_error('email') ?></div>
+                        </div>
+                        <div class="mb-3">
+                            <?php
+                            echo "<select class=\"form-control\" name=\"tahun_lulusan\">";
+                            echo "<option>Pilih Tahun Lulus</option>";
+                            foreach (range(2000, date('Y') + 1) as $year) {
+                                echo "<option value=\"" . $year . "\">" . $year . "</option>";
+                            }
+                            echo "</select>";
+                            ?>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="username" class="form-control" id="password" placeholder="Username" value="<?= set_value('username') ?>">
+                            <div class="mt-2"><?= form_error('username') ?></div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <div class="input-group-append">
+                                <div class="input-group-text" id="show_hide_password">
+                                    <a><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="username" class="form-control" id="password" placeholder="Username" value="<?= set_value('username') ?>">
-                                <div class="mt-2"><?= form_error('username') ?></div>
-                            </div>
-                            <div class="mb-3">
-                            </div>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                             <div class="mt-2"><?= form_error('password') ?></div>
                         </div>
                         <div class="text-center">
@@ -81,11 +96,26 @@
         </div>
     </div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
 
+    <script>
+        $(document).ready(function() {
+            $("#show_hide_password a").on('click', function(event) {
+                event.preventDefault();
+                if ($('input').attr("type") == "text") {
+                    $('input').attr('type', 'password');
+                    $('i').addClass("fa-eye-slash");
+                    $('i').removeClass("fa-eye");
+                } else if ($('input').attr("type") == "password") {
+                    $('input').attr('type', 'text');
+                    $('i').removeClass("fa-eye-slash");
+                    $('i').addClass("fa-eye");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
