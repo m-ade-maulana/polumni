@@ -10,7 +10,7 @@ class M_validation_model extends CI_Model
         $this->load->library('form_validation');
     }
 
-    public function reg_valid()
+    public function bio_valid()
     {
         $config = [
             [
@@ -22,6 +22,14 @@ class M_validation_model extends CI_Model
                 ]
             ],
             [
+                'field' => 'tempat_lahir',
+                'label' => 'Tempat Lahir',
+                'rules' => 'required',
+                'error' => [
+                    'required' => 'Tempat lahir tidak boleh kosong'
+                ]
+            ],
+            [
                 'field' => 'tanggal_lahir',
                 'label' => 'Tanggal Lahir',
                 'rules' => 'required',
@@ -30,30 +38,54 @@ class M_validation_model extends CI_Model
                 ]
             ],
             [
+                'field' => 'jenis_kelamin',
+                'label' => 'Jenis Kelamin',
+                'rules' => 'required',
+                'error' => [
+                    'required' => 'Jenis kelamin harus di pilih'
+                ]
+            ],
+            [
+                'field' => 'agama',
+                'label' => 'Agama',
+                'rules' => 'required',
+                'error' => [
+                    'required' => 'Agama harus di pilih'
+                ]
+            ],
+            [
+                'field' => 'telepon',
+                'label' => 'Telepon',
+                'rules' => 'required|numeric|max_length[13]',
+                'error' => [
+                    'required' => 'Tanggal lahir tidak boleh kosong',
+                    'numeric' => 'Harus berupa angka',
+                    'max_length' => 'Maksimal 13 karakter'
+                ]
+            ],
+            [
                 'field' => 'email',
                 'label' => 'Email',
                 'rules' => 'required|trim|valid_email',
                 'error' => [
-                    'required' => 'Nama tidak boleh kosong',
+                    'required' => 'Email tidak boleh kosong',
                     'valid_email' => 'Email tidak valid'
                 ]
             ],
             [
-                'field' => 'username',
-                'label' => 'Username',
-                'rules' => 'required|trim|is_unique[tb_registered.username]',
+                'field' => 'tahun_lulus',
+                'label' => 'Tahun Lulus',
+                'rules' => 'required',
                 'error' => [
-                    'required' => 'Nama tidak boleh kosong',
-                    'is_unique' => 'Username sudah ada, silahkan isi dengan username berbeda'
+                    'required' => 'Tahun lulus harus di pilih'
                 ]
             ],
             [
-                'field' => 'password',
-                'label' => 'Password',
-                'rules' => 'required|min_length[6]',
+                'field' => 'alamat',
+                'label' => 'Alamat',
+                'rules' => 'required',
                 'error' => [
-                    'required' => 'Nama tidak boleh kosong',
-                    'is_unique' => 'Username sudah ada, silahkan isi dengan username berbeda'
+                    'required' => 'Nama tidak boleh kosong'
                 ]
             ]
         ];
