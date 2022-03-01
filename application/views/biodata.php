@@ -147,6 +147,7 @@
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-block btn-color px-5 mb-5">Submit Biodata</button>
+                            <a href="<?= base_url('auth/logout') ?>" class="btn btn-block btn-danger px-5 mb-5">Cancel</a>
                         </div>
                         </form>
                     </div>

@@ -54,6 +54,10 @@
                             <div class="mt-2"><?= form_error('nama') ?></div>
                         </div>
                         <div class="mb-3">
+                            <input type="date" name="tanggal_lahir" id="TanggalLahir" class="form-control" placeholder="Tanggal Lahir">
+                            <div class="mt-2"><?= form_error('tanggal_lahir') ?></div>
+                        </div>
+                        <div class="mb-3">
                             <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="<?= set_value('email') ?>">
                             <div class=" mt-2"><?= form_error('email') ?></div>
                         </div>
