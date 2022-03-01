@@ -8,6 +8,9 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
+
     <style type="text/css">
         .btn-color {
             background-color: #0e1c36;
@@ -37,10 +40,10 @@
 </head>
 
 <body>
+    <?= $this->session->flashdata('message') ?>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <?= $this->session->flashdata('message') ?>
                 <div class="card shadow my-4">
                     <form action="<?= base_url('auth/login') ?>" method="POST" class="card-body cardbody-color p-lg-5">
 
@@ -63,13 +66,10 @@
                         <div class="text-center">
                             <button type="submit" class="btn btn-block btn-color px-5 mb-5">Login</button>
                         </div>
-                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">Not
-                            Registered ? <a href="<?= base_url('auth/registered') ?>" class="fw-bold"> Create an
-                                Account</a>
+                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">Belum terdaftar ? <a href="<?= base_url('auth/registered') ?>" class="fw-bold"> Buat akun disini</a>
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

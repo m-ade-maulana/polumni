@@ -46,7 +46,7 @@
                     <form action="<?= base_url('auth/register') ?>" method="POST" class="card-body cardbody-color p-lg-5">
 
                         <div class="text-center mb-4">
-                            <h4 class="font-weight-bold ">Registered Account</h4>
+                            <h4 class="font-weight-bold ">Daftar Akun Baru</h4>
                         </div>
 
                         <div class="mb-3">
@@ -54,22 +54,8 @@
                             <div class="mt-2"><?= form_error('nama') ?></div>
                         </div>
                         <div class="mb-3">
-                            <input type="date" name="tanggalLahir" class="form-control" id="password" placeholder="Tanggal Lahir" value="<?= set_value('tanggalLahir') ?>">
-                            <div class=" mt-2"><?= form_error('tanggalLahir') ?></div>
-                        </div>
-                        <div class="mb-3">
                             <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="<?= set_value('email') ?>">
                             <div class=" mt-2"><?= form_error('email') ?></div>
-                        </div>
-                        <div class="mb-3">
-                            <?php
-                            echo "<select class=\"form-control\" name=\"tahun_lulusan\">";
-                            echo "<option>Pilih Tahun Lulus</option>";
-                            foreach (range(2000, date('Y') + 1) as $year) {
-                                echo "<option value=\"" . $year . "\">" . $year . "</option>";
-                            }
-                            echo "</select>";
-                            ?>
                         </div>
                         <div class="mb-3">
                             <input type="text" name="username" class="form-control" id="password" placeholder="Username" value="<?= set_value('username') ?>">
@@ -85,9 +71,9 @@
                             <div class="mt-2"><?= form_error('password') ?></div>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-block btn-color px-5 mb-5">Registered</button>
+                            <button type="submit" class="btn btn-block btn-color px-5 mb-5">Buat Akun</button>
                         </div>
-                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">Have Account ? <a href="<?= base_url('auth') ?>" class=" fw-bold"> Login Here</a>
+                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">Punya akun ? <a href="<?= base_url('auth') ?>" class=" fw-bold"> Masuk Disini</a>
                         </div>
                     </form>
                 </div>
