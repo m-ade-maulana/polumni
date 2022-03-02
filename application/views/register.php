@@ -58,6 +58,10 @@
                             <div class="mt-2"><?= form_error('tanggal_lahir') ?></div>
                         </div>
                         <div class="mb-3">
+                            <input type="num" name="telepon" id="Telepon" class="form-control" placeholder="Nomor Telepon">
+                            <div class="mt-2"><?= form_error('telepon') ?></div>
+                        </div>
+                        <div class="mb-3">
                             <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="<?= set_value('email') ?>">
                             <div class=" mt-2"><?= form_error('email') ?></div>
                         </div>
