@@ -278,26 +278,19 @@ class Auth extends CI_Controller
     public function input_biodata()
     {
         $id_account = htmlspecialchars($this->input->post('id_account'));
+        // $id_account = $this->session->userdata('id_account');
+        $config['upload_path']          = './upload/image/profile';
+        $config['allowed_types']        = 'jpg|png';
+        $config['max_size']             = 500;
+        $config['file_name']            = $id_account;
+        // $config['encrypt_name'] 		= true;
+        $this->load->library('upload', $config);
 
-        if ($this->form_validation->run() == FALSE) {
-            $data['title'] = "Portal Alumni - Registered";
-            $data['favicon'] = "logo.png";
-
-            $this->load->view('auth/biodata', $data);
-        } else {
-            // $id_account = $this->session->userdata('id_account');
-            $config['upload_path']          = './upload/image/profile';
-            $config['allowed_types']        = 'jpg|png';
-            $config['max_size']             = 500;
-            $config['file_name']            = $id_account;
-            // $config['encrypt_name'] 		= true;
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload('foto_profile')) {
-                if ($this->upload->data('file_size') > 500) {
-                    $this->session->set_flashdata(
-                        'message',
-                        '<script>
+        if (!$this->upload->do_upload('foto_profile')) {
+            if ($this->upload->data('file_size') > 500) {
+                $this->session->set_flashdata(
+                    'message',
+                    '<script>
                             Swal.fire({
                                 Position: "top-end",
                                 icon: "failed",
@@ -307,12 +300,12 @@ class Auth extends CI_Controller
                                 timer: 2000
                             })
                         </script>'
-                    );
-                    redirect('auth/biodata');
-                }
-                $this->session->set_flashdata(
-                    'message',
-                    '<script>
+                );
+                redirect('auth/biodata');
+            }
+            $this->session->set_flashdata(
+                'message',
+                '<script>
                         Swal.fire({
                             Position: "top-end",
                             icon: "failed",
@@ -322,30 +315,30 @@ class Auth extends CI_Controller
                             timer: 2000
                         })
                     </script>'
-                );
-                redirect('auth/biodata');
-            } else {
-                $upload = $this->upload->data();
-                $data = [
-                    'id_account' => $id_account,
-                    'nisn' => htmlspecialchars($this->input->post('nisn')),
-                    'nama' => htmlspecialchars($this->input->post('nama')),
-                    'tempat_lahir' => htmlspecialchars($this->input->post('tempat_lahir')),
-                    'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-                    'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin')),
-                    'agama' => htmlspecialchars($this->input->post('agama')),
-                    'telepon' => htmlspecialchars($this->input->post('telepon')),
-                    'email' => htmlspecialchars($this->input->post('email')),
-                    'tahun_lulusan' => htmlspecialchars($this->input->post('tahun_lulus')),
-                    'alamat' => htmlspecialchars($this->input->post('alamat')),
-                    'foto' => $upload['file_name'],
-                ];
-                $result = $this->db->insert('tb_data_diri', $data);
-                // var_dump($data);
-                if ($result) {
-                    $this->session->set_flashdata(
-                        'message',
-                        '<script>
+            );
+            redirect('auth/biodata');
+        } else {
+            $upload = $this->upload->data();
+            $data = [
+                'id_account' => $id_account,
+                'nisn' => htmlspecialchars($this->input->post('nisn')),
+                'nama' => htmlspecialchars($this->input->post('nama')),
+                'tempat_lahir' => htmlspecialchars($this->input->post('tempat_lahir')),
+                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin')),
+                'agama' => htmlspecialchars($this->input->post('agama')),
+                'telepon' => htmlspecialchars($this->input->post('telepon')),
+                'email' => htmlspecialchars($this->input->post('email')),
+                'tahun_lulusan' => htmlspecialchars($this->input->post('tahun_lulus')),
+                'alamat' => htmlspecialchars($this->input->post('alamat')),
+                'foto' => $upload['file_name'],
+            ];
+            $result = $this->db->insert('tb_data_diri', $data);
+            // var_dump($data);
+            if ($result) {
+                $this->session->set_flashdata(
+                    'message',
+                    '<script>
                             Swal.fire({
                                 Position: "top-end",
                                 icon: "success",
@@ -355,13 +348,13 @@ class Auth extends CI_Controller
                                 timer: 2000
                             })
                         </script>'
-                    );
-                    redirect('auth');
-                    // var_dump($result);
-                } else {
-                    $this->session->set_flashdata(
-                        'message',
-                        '<script>
+                );
+                redirect('auth');
+                // var_dump($result);
+            } else {
+                $this->session->set_flashdata(
+                    'message',
+                    '<script>
                             Swal.fire({
                                 Position: "top-end",
                                 icon: "failed",
@@ -371,12 +364,19 @@ class Auth extends CI_Controller
                                 timer: 2000
                             })
                         </script>'
-                    );
-                    redirect('auth/biodata');
-                    // var_dump($result);
-                }
+                );
+                redirect('auth/biodata');
+                // var_dump($result);
             }
         }
+        // if ($this->form_validation->run() == FALSE) {
+        //     $data['title'] = "Portal Alumni - Registered";
+        //     $data['favicon'] = "logo.png";
+
+        //     $this->load->view('auth/biodata', $data);
+        // } else {
+
+        // }
     }
 
     public function aktif()
