@@ -45,8 +45,8 @@
                 <div class="card shadow my-4">
                     <form action="<?= base_url('auth/register') ?>" method="POST" class="card-body cardbody-color p-lg-5">
 
-                        <div class="text-center mb-4">
-                            <h4 class="font-weight-bold ">Daftar Akun Baru</h4>
+                        <div class="text-center">
+                            <img src="<?= base_url('assets/img/Logo.png') ?>" class="img-fluid mb-3" alt="profile">
                         </div>
 
                         <div class="mb-3">
@@ -76,8 +76,8 @@
                                     <a><i class="fa fa-eye" aria-hidden="true"></i></a>
                                 </div>
                             </div>
-                            <div class="mt-2"><?= form_error('password') ?></div>
                         </div>
+                        <div class="mt-2"><?= form_error('password') ?></div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-block btn-color px-5 mb-5">Buat Akun</button>
                         </div>
