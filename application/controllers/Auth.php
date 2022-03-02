@@ -72,6 +72,7 @@ class Auth extends CI_Controller
                                     'id_account' => $result['id_account'],
                                     'nama' => $result['nama'],
                                     'tanggal_lahir' => $result['tanggal_lahir'],
+                                    'telepon' => $result['telepon'],
                                     'email' => $result['email']
                                 ];
                                 $this->session->set_userdata($data);
@@ -110,6 +111,7 @@ class Auth extends CI_Controller
                                 'id_account' => $result['id_account'],
                                 'nama' => $result['nama'],
                                 'tanggal_lahir' => $result['tanggal_lahir'],
+                                'telepon' => $result['telepon'],
                                 'email' => $result['email']
                             ];
                             $this->session->set_userdata($data);

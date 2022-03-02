@@ -116,12 +116,17 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-4 form-group mb-3">
                                 <label for="" class="font-weight-bold">No Telepon</label>
-                                <input type="number" name="telepon" class="form-control" id="telepon" placeholder="ex : 081234567890">
+                                <input type="number" name="telepon" class="form-control" id="telepon" pvalue="<?= $telepon ?>" readonly>
                                 <div class=" mt-2"><?= form_error('telepon') ?></div>
                             </div>
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-4 form-group mb-3">
+                                <label for="" class="font-weight-bold">Email</label>
+                                <input type="number" name="email" class="form-control" id="Email" value="<?= $email ?>" readonly>
+                                <div class=" mt-2"><?= form_error('email') ?></div>
+                            </div>
+                            <div class="col-md-4 form-group mb-3">
 
                                 <label for="" class="font-weight-bold">Angkatan Tahun</label>
                                 <?php
