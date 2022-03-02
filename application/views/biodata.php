@@ -118,7 +118,7 @@
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="" class="font-weight-bold">No Telepon</label>
-                                <input type="number" name="telepon" class="form-control" id="telepon" pvalue="<?= $telepon ?>" readonly>
+                                <input type="number" name="telepon" class="form-control" id="telepon" value="<?= $telepon ?>" readonly>
                                 <div class=" mt-2"><?= form_error('telepon') ?></div>
                             </div>
                             <div class="col-md-4 form-group mb-3">
