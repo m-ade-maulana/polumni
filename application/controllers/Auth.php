@@ -310,7 +310,7 @@ class Auth extends CI_Controller
                             Position: "top-end",
                             icon: "failed",
                             title: "Gagal",
-                            text: "Maksimal gambar 500kb",
+                            text: "Foto wajib di isi",
                             showConfirmButton: false,
                             timer: 2000
                         })
