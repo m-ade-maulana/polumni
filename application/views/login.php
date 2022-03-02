@@ -48,7 +48,7 @@
                     <form action="<?= base_url('auth/login') ?>" method="POST" class="card-body cardbody-color p-lg-5">
 
                         <div class="text-center">
-                            <img src="<?= base_url('assets/img/Logo.png') ?>" class="img-fluid my-3" alt="profile">
+                            <img src="<?= base_url('assets/img/logo.png') ?>" class="img-fluid my-3" alt="profile">
                         </div>
 
                         <div class="mb-3">
