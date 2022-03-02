@@ -9,6 +9,7 @@ class Auth extends CI_Controller
         $this->load->library('email', 'form_validation');
         $this->load->model('M_database_model', 'dbm');
         $this->load->model('M_email', 'email_message');
+        $this->load->model('M_validation_model', 'validation');
     }
 
     public function index()
@@ -167,13 +168,33 @@ class Auth extends CI_Controller
 
     public function register()
     {
-        // $this->load->model('M_validation_model', 'validation');
-        // $this->validation->reg_valid();
-
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[tb_registered.email]');
-        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[6]|is_unique[tb_registered.username]');
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[12]');
+        $this->form_validation->set_rules('nama', 'Nama', 'required', array(
+            'required' => 'Nama Tidak boleh kosong'
+        ));
+        $this->form_validation->set_rules('tanggal_lahir', 'TanggalLahir', 'required', array(
+            'required' => 'Tanggal lahir Tidak boleh kosong'
+        ));
+        $this->form_validation->set_rules('telepon', 'Telepon', 'required|numeric|min_length[12]|max_length[13]', array(
+            'required' => 'Tanggal lahir Tidak boleh kosong',
+            'numeric' => 'Nomor telepon harus berupa angka',
+            'min_length' => 'Minimal 12 angka',
+            'max_length' => 'Maksimal 13 angka'
+        ));
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[tb_registered.email]', array(
+            'required' => 'Email Tidak boleh kosong',
+            'valid_email' => 'Email tidak valid',
+            'is_unique' => 'Email sudah terdaftar'
+        ));
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[6]|is_unique[tb_registered.username]', array(
+            'required' => 'Username Tidak boleh kosong',
+            'min_length' => 'Minimal 6 karakter',
+            'is_unique' => 'Username sudah terdaftar'
+        ));
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[12]', array(
+            'required' => 'Tanggal lahir Tidak boleh kosong',
+            'min_length' => 'Minimal 6 karakter',
+            'max_length' => 'Maksimal 12 karakter'
+        ));
 
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = "Portal Alumni - Registered";
@@ -187,6 +208,7 @@ class Auth extends CI_Controller
                 'id_account' => $id_account,
                 'nama' => htmlspecialchars($this->input->post('nama')),
                 'tanggal_lahir' => htmlspecialchars($this->input->post('tanggal_lahir')),
+                'telepon' => htmlspecialchars($this->input->post('telepon')),
                 'email' => htmlspecialchars($this->input->post('email')),
                 'username' => htmlspecialchars($this->input->post('username')),
                 'password' => password_hash(htmlspecialchars($this->input->post('password')), PASSWORD_DEFAULT),
@@ -198,7 +220,7 @@ class Auth extends CI_Controller
             $insert = $this->dbm->create('tb_registered', $data);
             // var_dump($data);
             if ($insert) {
-                $sending = $this->email_message->message($this->input->post('email'), $token);
+                $sending = $this->email_message->message(htmlspecialchars($this->input->post('email')), htmlspecialchars($this->input->post('username')), htmlspecialchars($this->input->post('password')), $token);
 
                 if ($sending == TRUE) {
                     $this->session->set_flashdata(
