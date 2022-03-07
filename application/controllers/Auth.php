@@ -35,6 +35,8 @@ class Auth extends CI_Controller
         $data['id_account'] = $this->session->userdata('id_account');
         $data['nama'] = $this->session->userdata('nama');
         $data['tanggal_lahir'] = $this->session->userdata('tanggal_lahir');
+        $data['telepon'] = $this->session->userdata('telepon');
+        $data['email'] = $this->session->userdata('email');
 
         $this->load->view('biodata', $data);
     }
@@ -94,6 +96,8 @@ class Auth extends CI_Controller
                                 redirect('auth');
                             }
                         } else {
+                            $temp = $this->db->get_where('tb_registered', ['username' => $username])->row_array();
+
                             $this->session->set_flashdata(
                                 'message',
                                 '<script>
