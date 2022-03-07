@@ -65,8 +65,8 @@
                         </div>
 
                         <div class="mb-3" hidden>
-                            <input type="text" name="nisn" id="NISN" class="form-control" value="<?= $id_account ?>">
-                            <div class="mt-2"><?= form_error('nisn') ?></div>
+                            <input type="text" name="id_account" id="IDAccount" class="form-control" value="<?= $id_account ?>">
+                            <div class="mt-2"><?= form_error('id_account') ?></div>
                         </div>
 
                         <div class="row">
@@ -123,7 +123,7 @@
                             </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="" class="font-weight-bold">Email</label>
-                                <input type="number" name="email" class="form-control" id="Email" value="<?= $email ?>" readonly>
+                                <input type="email" name="email" class="form-control" id="Email" value="<?= $email ?>" readonly>
                                 <div class=" mt-2"><?= form_error('email') ?></div>
                             </div>
                             <div class="col-md-4 form-group mb-3">
@@ -144,11 +144,9 @@
                             <textarea name="alamat" id="Alamat" class="form-control" cols="30" rows="10" placeholder="ex : Jl. Cisadane Raya VIII Perumnas 1 RT 001 RW 001 Nusa Jaya Karawaci Kota Tangerang"></textarea>
                             <div class=" mt-2"><?= form_error('alamat') ?></div>
                         </div>
-                        <div class="input-group mb-3">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="foto_profile" id="foto_profile" aria-describedby="fotoProfile">
-                                <label class="custom-file-label" for="fotoProfile">Upload Foto Disini</label>
-                            </div>
+                        <div class="form-group mb-3">
+                            <label for="" class="font-weight-bold">Foto</label>
+                            <input type="file" class="form-control" name="foto_profile" id="foto_profile">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-block btn-color px-5">Submit Biodata</button>
